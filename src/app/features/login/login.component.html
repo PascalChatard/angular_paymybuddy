@@ -1,0 +1,39 @@
+
+
+<style>
+	body {
+		padding-top: 50px;
+	}
+	.special {
+		padding-top:50px;
+	}
+</style>
+
+<body>
+<div class="container-fluid text-center">
+
+<!--         <form class="form-horizontal" th:action="@{/perform_login}" method="post" style="max-width: 350px; margin: 0 auto;">
+ -->
+         <form class="form-horizontal" action="login" method="post" style="max-width: 350px; margin: 0 auto;">
+     
+         
+        <div class="border border-secondary p-3 rounded" style="padding: 5rem;">
+			
+			<img class="img-fluid" src="./features/login/icone.png" style="margin-bottom: 2rem;"/>
+
+            <p>
+                <input type="email" name="email" class="form-control" placeholder="E-mail" style="margin-bottom: 2rem;" required autofocus/>
+            </p>
+            <p>
+                <input type="password" name="password" class="form-control" placeholder="Password" style="margin-bottom: 2rem;" required />
+            </p>
+            <p>
+                <input type="checkbox" name="remember-me" style="margin-bottom: 2rem;"/>&nbsp;Remember Me
+            </p>
+            <p>
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </p>
+        </div>
+    </form>      
+</div>
+</body>
