@@ -8,6 +8,9 @@ import { AccountComponent } from './features/account/account.component';
 import { ProfilComponent } from './profil/profil.component';
 import { TransfertComponent } from './features/transfert/transfert.component';
 import { UserComponent } from './features/user/user.component';
+import { AuthService } from './services/auth.service';
+import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
+import { AuthGuard } from './services/auth-gaurd.service';
 
 @NgModule({
   declarations: [
@@ -16,13 +19,17 @@ import { UserComponent } from './features/user/user.component';
     AccountComponent,
     ProfilComponent,
     TransfertComponent,
-    UserComponent
+    UserComponent,
+    FourOhFourComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
