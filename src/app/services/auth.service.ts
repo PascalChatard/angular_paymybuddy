@@ -19,4 +19,8 @@ export class AuthService {
     signOut(){
         this.isAuth = false;
     }
+
+    isAuthenticated() : boolean{
+        return this.isAuth;
+    }
 }

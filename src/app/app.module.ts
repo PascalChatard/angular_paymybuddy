@@ -11,6 +11,7 @@ import { UserComponent } from './features/user/user.component';
 import { AuthService } from './services/auth.service';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { AuthGuard } from './services/auth-gaurd.service';
+import { LogoffComponent } from './features/logoff/logoff.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AuthGuard } from './services/auth-gaurd.service';
     ProfilComponent,
     TransfertComponent,
     UserComponent,
-    FourOhFourComponent
+    FourOhFourComponent,
+    LogoffComponent
   ],
   imports: [
     BrowserModule,

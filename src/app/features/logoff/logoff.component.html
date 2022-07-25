@@ -1,0 +1,25 @@
+<form class="form-horizontal text-center" style="max-width: 350px; margin: 0 auto; background-color: #eee;">
+
+    <div class="border border-secondary p-3 rounded" style="padding: 5rem;">
+
+        <!-- Icone PayMyBuddy -->
+        <img class="img-fluid" src="../../assets/icone.png" style="margin-bottom: 2rem;"/>
+
+        <div class="text-center form-outline mb-4">
+            <h2>Voulez-vous vraiment quitter PayMyBuddy? </h2>
+        </div>
+  
+        <!-- Submit button -->
+        <div class="col d-flex justify-content-evenly form-outline mb-4"> 
+            <div class="form-button ">
+                <button type="button" class="btn btn-danger" (click)="onSignOut()">Sign out</button>
+            </div>
+
+            <div class="form-button ">
+                <button type="button" class="btn btn-primary" (click)="onContinue()">Continue</button>
+            </div>
+        </div>
+
+    </div>
+
+</form>
