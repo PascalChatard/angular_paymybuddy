@@ -1,37 +1,27 @@
 
 <div class="container-fluid text-center">
+  <div *ngIf="!isUserLogged()">
     <h1>
         Welcom to {{title}}!!!
     </h1>
+  </div>
     <!-- Icone PayMyBuddy -->
     <img class="img-fluid" src="../../assets/icone.png" style="margin-bottom: 2rem;" *ngIf="isUserLogged()"/>
 </div>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="isUserLogged()">
   <!-- Navbar content -->
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       <li> <a class="nav-link" routerLink="login" routerLinkActive="active">Authentification</a> </li>
       <li> <a class="nav-link" routerLink="account" routerLinkActive="active">Transfer</a> </li>
-      <li> <a class="nav-link" >Profile</a> </li>
-      <li> <a class="nav-link" >Contact</a> </li>
+      <li> <a class="nav-link" routerLink="profile" routerLinkActive="active">Profile</a> </li>
       <li> <a class="nav-link" routerLink="logoff" routerLinkActive="active">Log off</a> </li>
     </ul>
   </div>
 
 </nav>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" *ngIf="isUserLogged()">
-    <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <li> <a class="nav-link" routerLink="login" routerLinkActive="active">Authentification</a> </li>
-        <li> <a class="nav-link" routerLink="account" routerLinkActive="active">Transfer</a> </li>
-        <li> <a class="nav-link" >Profile</a> </li>
-        <li> <a class="nav-link" >Contact</a> </li>
-        <li> <a class="nav-link" routerLink="logoff" routerLinkActive="active">Log off</a> </li>
-      </ul>
-    </div>
-  </nav>
 
 
 <div class="container">

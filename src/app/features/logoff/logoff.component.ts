@@ -21,13 +21,13 @@ export class LogoffComponent implements OnInit {
     onSignOut(){
 
         this.authService.signOut();
-        this.router.navigate(['loggin']);
+        this.router.navigate(['login']);
     }
 
     
     onContinue(){
 
-      this.router.navigate(['account']);
+        this.router.navigate(['account']);
     }
 
 }
