@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,6 +33,8 @@ import { LogoffComponent } from './features/logoff/logoff.component';
     AuthService,
     AuthGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
