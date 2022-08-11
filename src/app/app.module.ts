@@ -13,6 +13,7 @@ import { AuthService } from './services/auth.service';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { AuthGuard } from './services/auth-gaurd.service';
 import { LogoffComponent } from './features/logoff/logoff.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { LogoffComponent } from './features/logoff/logoff.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
     AuthService,
