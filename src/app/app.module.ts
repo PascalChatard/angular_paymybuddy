@@ -11,9 +11,10 @@ import { TransfertComponent } from './features/transfert/transfert.component';
 import { UserComponent } from './features/user/user.component';
 import { AuthService } from './services/auth.service';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
-import { AuthGuard } from './services/auth-gaurd.service';
+import { AuthGuard } from './services/auth-guard.service';
 import { LogoffComponent } from './features/logoff/logoff.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,

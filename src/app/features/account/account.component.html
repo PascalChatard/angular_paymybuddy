@@ -8,15 +8,17 @@
 <div class="container special">
     <h2 class="h2">Send Money<a th:href="@{/account/connection/{id}(id=${account.accountId})}"><button class="btn btn-info">Add Connection</button></a></h2>
             
-    <form  method="POST" th:action="@{/account/{id}(id=${account.accountId})}" th:object="${transferInfos}"> 
+    <!-- <form  method="POST" th:action="@{/account/{id}(id=${account.accountId})}" th:object="${transferInfos}">  -->
+    <form  [formGroup]="transferForm" (ngSubmit)="onSubmit()"> 
         <div class="form-group blu-margin"> 
         
-            <select class="form-control" name="beneficiaryUserId" >
+            <!-- <select class="form-select" name="beneficiaryUserId" > -->
+            <select class="form-control" formControlName="beneficiaryUserId" placeholder="Give a description">
                 <option value="0">select A Connection</option>
-                <option *ngFor="let user of account?.connections" value="{{user.userId}}" text="{{user.firstName}}" ></option>
+                <option *ngFor="let user of account?.connections" value="{{user.userId}}" text="{{user.firstName}} {{user.lastName}}" ></option>
              </select>  
-             <input	type="text" name="transferDescription" placeholder="Give a description" class="form-control" id="Description"> 
-             <input type="number" step="0.01" value="0.0" name="transferAmout" >
+             <input	type="text" class="form-control" formControlName="transferDescription" placeholder="Give a description"  id="transferDescription"> 
+             <input type="number" class="form-control" step="0.01" value="0.0" formControlName="transferAmout" id="transferAmout">
             <button type="submit" class="btn btn-info">Pay</button> 
          </div>
              

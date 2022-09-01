@@ -4,7 +4,7 @@ import { AccountComponent } from './features/account/account.component';
 import { LoginComponent } from './features/login/login.component';
 import { LogoffComponent } from './features/logoff/logoff.component';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
-import { AuthGuard } from './services/auth-gaurd.service';
+import { AuthGuard } from './services/auth-guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
