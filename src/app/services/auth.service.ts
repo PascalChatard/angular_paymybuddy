@@ -5,74 +5,64 @@ import { Injectable } from "@angular/core";
 
 @Injectable()
 export class AuthService {
-    isAuth = false;
+    private isAuth: boolean;
     user: User | undefined;
 
     constructor(private http: HttpClient) {
-        //this.user = null;
+        this.isAuth = false;
     }
- 
-    signIn(){
-    //signIn(email: string, password: string){qq
+	
+    /**
+    * Sign in with credentials
+    * @param {string} email of user who want log in
+    * @param {string} password of user who want log in
+    * @returns {Promise}
+    */
+    signIn(email: string, password: string){
 
         return new Promise(
             (resolve,reject) => {
-                setTimeout(
-                    () => {
-                        this.isAuth = true;
-                        resolve(true);
-                    }, 1500
+
+                // consumes the user/email endpoint of API REST 
+                this.http.get("http://localhost:4200/api/user/" + email).subscribe(
+
+                    (data: any) => {
+
+                        // the API REST return a user, verify the instance and the credentials
+                        this.user = data;
+                        if ((this.user != null) && 
+                            (this.user.mail == email) &&
+                            (this.user.password == password)) {
+
+                                // the user is authenticated
+                                this.isAuth = true;
+                                resolve(true);
+                        }
+                        else{
+                                // l'erreur ne remonte pas ici ....
+                                console.log("signIn, isAuth = false");
+                                resolve(false); 
+                        }
+                    }
                 );
             }
         );
 
-    //     this.http.get("http://localhost:4200/api/user/" + email).subscribe(
-    //         (data: any) => {
-    //             console.log(data);
-    //             this.user = data;
-    //             if ((this.user != null) && 
-    //                 (this.user.mail == email) &&
-    //                 (this.user.password == password))
-    //             {
-    //                 console.log("signIn, isAuth = true");
-    //                 this.isAuth = true;
-    //                 return true;
-    //             }
-    //             else{
-    //                 console.log("signIn, isAuth = false");
-    //                 return false; 
-    //             }
-    //         }
-    // );
-
-        //     return new Promise(
-        //     (resolve,reject) => {
-        //         this.http.get("http://localhost:4200/api/user/" + email).subscribe(
-        //             (data: any) => {
-        //                 console.log(data);
-        //                 this.user = data;
-        //                 if ((this.user != null) && 
-        //                     (this.user.mail == email) &&
-        //                     (this.user.password == password)) {
-        //                         console.log("signIn, isAuth = true");
-        //                         this.isAuth = true;
-        //                         return true;
-        //                 }
-        //                 else{
-        //                         console.log("signIn, isAuth = false");
-        //                         return false; 
-        //                 }
-        //             }
-        //         );
-        //     }
-        // );
-
     }
 
+
+    /**
+    * Sign out user
+    */
     signOut(){
         this.isAuth = false;
     }
 
+
+    /**
+    * Returns authenticate status
+    * @returns {boolean} true if user is authenticated otherwise false
+    */
     isAuthenticated() : boolean{
         return this.isAuth;
     }

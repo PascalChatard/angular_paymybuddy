@@ -47,5 +47,4 @@ export interface User {
 	 */
 	accountUser: Account;
 
-
 }

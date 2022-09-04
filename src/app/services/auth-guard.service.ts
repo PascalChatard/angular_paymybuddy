@@ -14,13 +14,20 @@ export class AuthGuard implements CanActivate{
         state: RouterStateSnapshot
         ):  Observable <boolean> | Promise <boolean> | boolean {
 
-        if (this.authService.isAuth){
+        if (this.authService.isAuthenticated()){
+
+            // successful authentication
             return true;
-        } else{
+        } 
+        else{
+
+            // Je n'arrive pas a executer une pop-up d'avertissement....
+            //alert('You are not allowed to view this page. You are redirected to login Page');
+
+            // authentication failed, redicte to login page
             this.router.navigate(['/login']);
             return false;
         }
-            
 
     }
 

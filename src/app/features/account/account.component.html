@@ -8,11 +8,9 @@
 <div class="container special">
     <h2 class="h2">Send Money<a th:href="@{/account/connection/{id}(id=${account.accountId})}"><button class="btn btn-info">Add Connection</button></a></h2>
             
-    <!-- <form  method="POST" th:action="@{/account/{id}(id=${account.accountId})}" th:object="${transferInfos}">  -->
     <form  [formGroup]="transferForm" (ngSubmit)="onSubmit()"> 
         <div class="form-group blu-margin"> 
         
-            <!-- <select class="form-select" name="beneficiaryUserId" > -->
             <select class="form-control" formControlName="beneficiaryUserId" placeholder="Give a description">
                 <option value="0">select A Connection</option>
                 <option *ngFor="let user of account?.connections" value="{{user.userId}}" text="{{user.firstName}} {{user.lastName}}" ></option>

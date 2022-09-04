@@ -8,83 +8,80 @@ import { Transfer } from 'src/app/models/transfer';
 
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+    selector: 'app-account',
+    templateUrl: './account.component.html',
+    styleUrls: ['./account.component.scss']
 })
 
 @Injectable()
 export class AccountComponent implements OnInit {
 
-  page = 1;
-  pageSize = 6;
-  collectionSize = 2;//TRANSFERS.length;
+    // page = 1;
+    // pageSize = 6;
+    // collectionSize = 2;
  
-  account: Account | undefined;
-  accountId: any;
-  transferForm: FormGroup ;//| undefined;
+    account: Account | undefined;
+    accountId: any;
+    transferForm: FormGroup ;
   
 
 
 
-  constructor(private formBuilder: FormBuilder,private http: HttpClient, private router: Router) {
-      //this.refreshTableTransfers();
+    constructor(private formBuilder: FormBuilder,private http: HttpClient, private router: Router) {
+        //this.refreshTableTransfers();
         this.transferForm = this.formBuilder.group(
-        {
-          beneficiaryUserId: ['', Validators.required],
-          transferDescription: ['', Validators.required],
-          transferAmout: ['', Validators.required]
-        }
-      )
-   }
+            {
+              beneficiaryUserId: ['', Validators.required],
+              transferDescription: ['', Validators.required],
+              transferAmout: ['', Validators.required]
+            }
+        )
+    }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
+        this.accountId = history.state.data;
+        this.loadTransfers(this.accountId);
+    }
 
-      this.loadTransfers();
-  }
-
-  // refreshTableTransfers() {
-  //   this.transfers = TRANSFERS
-  //     .map((country, i) => ({id: i + 1, ...country}))
-  //     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
-  // }
+    // refreshTableTransfers() {
+    //   this.transfers = TRANSFERS
+    //     .map((country, i) => ({id: i + 1, ...country}))
+    //     .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+    // }
 
 
-  // httpOptionsGet = {
-  //   headers: new HttpHeaders({
-  //     'Content-Type': 'application/json',
-  //     'Access-Control-Allow-Origin': '*',
-  //   })
-  // };
-
-  loadTransfers() {
+    /**
+    * Load account data
+    * @param {any} accounId of user as a integer
+    */
+    loadTransfers(accountId: any) {
     
-    this.http.get("http://localhost:4200/api/account/1").subscribe(
-        (data: any) => {
-            console.log(data);
-            this.account = data;
-            if (this.account != null)
-              this.accountId = this.account.accountId;
+        this.http.get("http://localhost:4200/api/account/"+ accountId).subscribe(
+            (data: any) => {
+                console.log(data);
+                this.account = data;
+                if (this.account != null)
+                    this.accountId = this.account.accountId;
+            }
+        );
+    }
+
+
+    /**
+    * Submit a new transfer
+    */
+    onSubmit() {
+        console.log("submit", this.transferForm.value);
+        var urlAccount = "http://localhost:4200/api/account/" + this.accountId;
+        if (this.transferForm.valid) {
+            const transfer = this.transferForm.value;
+            console.log("transfer ", transfer);
+            this.http.post(urlAccount, { ...transfer      }).subscribe(
+                              data => {
+                                          console.log("data", data);
+                                          this.loadTransfers(this.accountId);
+                                      })
         }
-    );
-  }
-
-
-  onSubmit() {
-     console.log("submit", this.transferForm.value);
-     var urlAccount = "http://localhost:4200/api/account/" + this.accountId;
-     if (this.transferForm.valid) {
-       const transfer = this.transferForm.value;
-       console.log("transfer ", transfer);
-       this.http.post(urlAccount, {
-         ...transfer
-      }).subscribe(data => {
-         console.log("data", data);
-    //     this.router.navigateByUrl("/")
-    //       this.router.navigate(['account']);
-           this.loadTransfers();
-       })
-     }
-  }
+    }
 
 }

@@ -7,29 +7,38 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
-    authStatus: boolean | undefined;
-    email: string ;//| undefined;
-    password: string ;//| undefined;
+    // login status, false/true -> logged out/logged in
+    private loginStatus: boolean;
+
+    // for property binding DOM
+    public email: string ;
+    public password: string ;
 
     constructor(private authService: AuthService, private router: Router) {
+        
+        this.loginStatus = false;        
         this.email = '';
         this.password = '';
     }
 
     ngOnInit(): void {
-        this.authStatus = this.authService.isAuth;
+        this.loginStatus = this.authService.isAuthenticated();
     }
 
     onSignIn(){
-        this.authService.signIn().then(
-        //this.authService.signIn(this.email, this.password);//.then(
-            () => {
-                    console.log("Email = ",this.email);
-                    console.log("Password = ",this.password);
-                    this.authStatus = this.authService.isAuth;
-                    this.router.navigate(['account']);
+        this.authService.signIn(this.email, this.password).then(
+             () => {
+                    // login success, assign status
+                    this.loginStatus = this.authService.isAuthenticated();
+
+                    // retreive the account user id
+                    var accountId = this.authService.user?.accountUser;
+
+                    // login success, navigate to account page of user logged
+                    this.router.navigate(['account/',accountId], {state: {data: accountId}});
                   }
         );
     }
