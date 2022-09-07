@@ -25,8 +25,6 @@ export class AccountComponent implements OnInit {
     transferForm: FormGroup ;
   
 
-
-
     constructor(private formBuilder: FormBuilder,private http: HttpClient, private router: Router) {
         //this.refreshTableTransfers();
         this.transferForm = this.formBuilder.group(
@@ -39,7 +37,10 @@ export class AccountComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        // retreives the account id from URL
         this.accountId = history.state.data;
+
+        // attempts to recover account data
         this.loadTransfers(this.accountId);
     }
 
@@ -56,11 +57,15 @@ export class AccountComponent implements OnInit {
     */
     loadTransfers(accountId: any) {
     
+        // consumes the account/id endpoint of API REST 
         this.http.get("http://localhost:4200/api/account/"+ accountId).subscribe(
             (data: any) => {
-                console.log(data);
+               
+                // the API REST return a account, verify the instance
                 this.account = data;
+                // check that the instance exists
                 if (this.account != null)
+                    // retreive account id
                     this.accountId = this.account.accountId;
             }
         );
@@ -71,14 +76,16 @@ export class AccountComponent implements OnInit {
     * Submit a new transfer
     */
     onSubmit() {
-        console.log("submit", this.transferForm.value);
+        //console.log("submit", this.transferForm.value);
         var urlAccount = "http://localhost:4200/api/account/" + this.accountId;
         if (this.transferForm.valid) {
+
+            // retrieve data for execute a transfer
             const transfer = this.transferForm.value;
-            console.log("transfer ", transfer);
+            // consumes the account/id endpoint of API REST
             this.http.post(urlAccount, { ...transfer      }).subscribe(
                               data => {
-                                          console.log("data", data);
+                                          // update transfer list with the new transfer
                                           this.loadTransfers(this.accountId);
                                       })
         }
