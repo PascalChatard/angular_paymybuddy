@@ -30,7 +30,8 @@ export class AuthService {
 
                         // the API REST return a user, verify the instance and the credentials
                         this.user = data;
-                        if ((this.user != null) && 
+                        //if ((this.user != null) && 
+                        if ((this.user) && 
                             (this.user.mail == email) &&
                             (this.user.password == password)) {
 

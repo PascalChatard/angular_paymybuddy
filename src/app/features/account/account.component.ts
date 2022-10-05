@@ -64,9 +64,14 @@ export class AccountComponent implements OnInit {
                 // the API REST return a account, verify the instance
                 this.account = data;
                 // check that the instance exists
-                if (this.account != null)
+                //if (this.account != null)
+                if (this.account)
                     // retreive account id
                     this.accountId = this.account.accountId;
+                else
+                {
+                    // Quoi mettre ici ????????
+                }
             }
         );
     }

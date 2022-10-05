@@ -15,6 +15,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LogoffComponent } from './features/logoff/logoff.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddConnectionComponent } from './features/add-connection/add-connection.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TransfertComponent,
     UserComponent,
     FourOhFourComponent,
-    LogoffComponent
+    LogoffComponent,
+    AddConnectionComponent
   ],
   imports: [
     BrowserModule,

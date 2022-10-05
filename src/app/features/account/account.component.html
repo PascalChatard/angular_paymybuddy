@@ -5,19 +5,25 @@
 <!--             Nouveau Transfert       -->
 <!-- *********************************** -->
 
-<div class="container special">
-    <h2 class="h2">Send Money<a th:href="@{/account/connection/{id}(id=${account.accountId})}"><button class="btn btn-info">Add Connection</button></a></h2>
+<div class="container special" style=" margin: 20px auto;" >
+    <h2 class="h2">Send Money<a href="/account/connection/{{accountId}}"><button class="btn btn-info" style="margin-left:10px">Add Connection</button></a></h2>
+    <!-- <h2 class="h2">Send Money<a th:href="@{/account/connection/{id}(id=${account.accountId})}"><button class="btn btn-info" style="margin-left:10px">Add Connection</button></a></h2> -->
             
     <form  [formGroup]="transferForm" (ngSubmit)="onSubmit()"> 
         <div class="form-group blu-margin"> 
         
-            <select class="form-control" formControlName="beneficiaryUserId" placeholder="Give a description">
-                <option value="0">select A Connection</option>
+            <!-- <select class="form-control" formControlName="beneficiaryUserId" style="margin:10px"> -->
+            <select class="form-control" formControlName="beneficiaryUserId" style="margin:10px">
+                <!-- <option value="0">select A Connection</option> -->
+                <!-- <option value="" selected disabled>Select a Connection</option> -->
+                <!-- <option value="" hiden disabled>Select a connection</option> -->
+                <!-- <option value="">Select a connection</option> -->
+                <option value="" selected disabled hidden>Please select a connection</option>
                 <option *ngFor="let user of account?.connections" value="{{user.userId}}" text="{{user.firstName}} {{user.lastName}}" ></option>
              </select>  
-             <input	type="text" class="form-control" formControlName="transferDescription" placeholder="Give a description"  id="transferDescription"> 
-             <input type="number" class="form-control" step="0.01" value="0.0" formControlName="transferAmout" id="transferAmout">
-            <button type="submit" class="btn btn-info">Pay</button> 
+             <input	type="text" class="form-control" formControlName="transferDescription" placeholder="Give a description"  id="transferDescription" style="margin:10px"> 
+             <input type="number" class="form-control" placeholder="0.00" step="0.01" value="0.0" formControlName="transferAmout" id="transferAmout" style="margin:10px">
+            <button type="submit" class="btn btn-info" style="margin:10px">Pay</button> 
          </div>
              
     </form>
@@ -31,7 +37,7 @@
 <!-- *********************************** -->
 
 
-<div class="container special">
+<div class="container special" style=" margin: 20px auto;">
 
     <h2 class="h2">My Transfers</h2>
 
