@@ -67,4 +67,16 @@ export class AuthService {
     isAuthenticated() : boolean{
         return this.isAuth;
     }
+
+
+
+    /**
+    * Returns authenticate status
+    * @returns {boolean} true if user is authenticated otherwise false
+    */
+     getAccountIdOfAuthenticatedUser() : any{
+        //if(this.isAuth)
+          return this.user?.accountUser?.accountId;
+    }
+
 }

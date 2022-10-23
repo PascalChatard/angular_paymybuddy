@@ -61,13 +61,12 @@ export class AccountComponent implements OnInit {
         this.http.get("http://localhost:4200/api/account/"+ accountId).subscribe(
             (data: any) => {
                
-                // the API REST return a account, verify the instance
-                this.account = data;
+                // the API REST return a account, 
                 // check that the instance exists
-                //if (this.account != null)
-                if (this.account)
-                    // retreive account id
-                    this.accountId = this.account.accountId;
+                if (data)
+                {
+                    this.account = data;
+                }                    
                 else
                 {
                     // Quoi mettre ici ????????
@@ -92,8 +91,19 @@ export class AccountComponent implements OnInit {
                               data => {
                                           // update transfer list with the new transfer
                                           this.loadTransfers(this.accountId);
+                                          this.transferForm.clearValidators();
                                       })
         }
     }
+
+    /**
+    * Navigate to add a new connection to account
+    */
+     addConnection(){
+              
+        this.router.navigate(['account/connection/',this.accountId], {state: {data: this.accountId}});
+                  
+    }
+
 
 }
