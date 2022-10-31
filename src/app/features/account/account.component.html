@@ -11,13 +11,13 @@
         <!-- Action button to  added a user to connections list -->
         <h2 class="h2">Send Money<button class="btn btn-info" style="margin-left:10px" (click)="addConnection()">Add Connection</button></h2>
             
-        <form  [formGroup]="transferForm" (ngSubmit)="onSubmit()"> 
-            <div class="form-group blu-margin"> 
+        <form  [formGroup]="transferForm" (ngSubmit)="onSubmit()">
+            <div class="form-group blu-margin">
                 <!-- Selects the beneficiary of money transfer -->
                 <select class="form-control" formControlName="beneficiaryUserId" style="margin:10px; background-color: #2c3034;color:#fff">
                     <option value="" selected disabled hidden>Please select a connection</option>
                     <option *ngFor="let user of account?.connections" value="{{user.userId}}" text="{{user.firstName}} {{user.lastName}}" ></option>
-                </select>  
+                </select>
                 <!-- Gives a description of money transfer -->
                 <input	type="text" class="form-control form-control-dark" formControlName="transferDescription" placeholder="Give a description"  id="transferDescription" style="margin:10px; background-color: #2c3034;color:#fff"> 
                 <!-- Indicates amount of money transfer -->

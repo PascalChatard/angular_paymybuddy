@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/models/account';
@@ -24,9 +24,11 @@ export class AccountComponent implements OnInit {
     accountId: any;
     transferForm: FormGroup ;
   
-
-    constructor(private formBuilder: FormBuilder,private http: HttpClient, private router: Router) {
-        //this.refreshTableTransfers();
+    constructor(private formBuilder: FormBuilder,
+                private http: HttpClient, 
+                private router: Router,
+                private _Activatedroute:ActivatedRoute) {
+        
         this.transferForm = this.formBuilder.group(
             {
               beneficiaryUserId: ['', Validators.required],
@@ -37,11 +39,16 @@ export class AccountComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // retreives the account id from URL
-        this.accountId = history.state.data;
 
-        // attempts to recover account data
-        this.loadTransfers(this.accountId);
+        // retreives the account id from URL
+        this._Activatedroute.paramMap.subscribe(params => { 
+             
+            this.accountId = params.get('id'); 
+
+            // attempts to recover account data
+            this.loadTransfers(this.accountId);
+        }); 
+
     }
 
     // refreshTableTransfers() {
@@ -80,7 +87,7 @@ export class AccountComponent implements OnInit {
     * Submit a new transfer
     */
     onSubmit() {
-        //console.log("submit", this.transferForm.value);
+        
         var urlAccount = "http://localhost:4200/api/account/" + this.accountId;
         if (this.transferForm.valid) {
 
@@ -88,11 +95,12 @@ export class AccountComponent implements OnInit {
             const transfer = this.transferForm.value;
             // consumes the account/id endpoint of API REST
             this.http.post(urlAccount, { ...transfer      }).subscribe(
-                              data => {
-                                          // update transfer list with the new transfer
-                                          this.loadTransfers(this.accountId);
-                                          this.transferForm.clearValidators();
-                                      })
+                              data =>   {
+                                            // update transfer list with the new transfer
+                                            this.loadTransfers(this.accountId);
+                                            this.transferForm.clearValidators();
+                                            this.transferForm.reset();
+                                        });
         }
     }
 
@@ -104,6 +112,5 @@ export class AccountComponent implements OnInit {
         this.router.navigate(['account/connection/',this.accountId], {state: {data: this.accountId}});
                   
     }
-
 
 }

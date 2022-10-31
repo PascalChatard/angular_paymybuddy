@@ -7,13 +7,25 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'PayMyBuddy';
+    title: string;
 
 
     constructor(private authService: AuthService) {
+      this.title = 'PayMyBuddy';
+
     }
 
     isUserLogged(): boolean {
       return this.authService.isAuthenticated();
+    }
+
+
+    getAccountId(): any{
+      if(this.authService.isAuthenticated()){
+        var accountId = this.authService.user?.accountUser;
+
+        return accountId;
+      }
+      
     }
 }
