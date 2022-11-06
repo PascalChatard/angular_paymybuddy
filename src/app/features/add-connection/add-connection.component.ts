@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Account } from 'src/app/models/account';
 import { User } from 'src/app/models/user';
 
@@ -11,47 +11,60 @@ import { User } from 'src/app/models/user';
 })
 export class AddConnectionComponent implements OnInit {
 
-  account: Account | undefined;
-  accountId: any;
+    account: Account | undefined;
+    accountId: any;
 
-  connections: User[] = [];
+    connections: User[] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+    constructor(private http: HttpClient, 
+                private router: Router,
+                private _activatedRoute:ActivatedRoute) { }
 
-  ngOnInit(): void {
-            // retreives the account id from URL
-            this.accountId = history.state.data;
-            console.log("Accountid = ",this.accountId);
+    ngOnInit(): void {
+        // retreives the account id from URL
+        // this.accountId = history.state.data;
+        // console.log("Accountid = ",this.accountId);
 
+        // // attempts to recover account data
+        // this.loadConnections(this.accountId);
+
+
+        // retreives the account id from URL
+        this._activatedRoute.paramMap.subscribe(params => { 
+             
+            this.accountId = params.get('id'); 
+        
             // attempts to recover account data
             this.loadConnections(this.accountId);
-  }
+        }); 
+        
+    }
 
 
-  /**
-  * Load account connections data
-  * @param {any} accountId id of account as a integer
-  */
-  loadConnections(accountId: any) {
+    /**
+    * Load account connections data
+    * @param {any} accountId id of account as a integer
+    */
+    loadConnections(accountId: any) {
     
-    //consumes the account/connection/accountId endpoint of API REST 
-    this.http.get("http://localhost:4200/api/account/connection/"+ accountId).subscribe(
-        (data: any) => {
+        //consumes the account/connection/accountId endpoint of API REST 
+        this.http.get("http://localhost:4200/api/account/connection/"+ accountId).subscribe(
+            (data: any) => {
 
-          // the API REST return a user list
-          // check that the instance exists
-          if (data)
-          {
-            this.connections = data;          
-          }
-          else
-          {
-              // Quoi mettre ici ????????
-          }
+            // the API REST return a user list
+            // check that the instance exists
+            if (data)
+            {
+                this.connections = data;          
+            }
+            else
+            {
+                // Quoi mettre ici ????????
+            }
 
-        }
-    );
-  }
+            }
+        );
+    }
 
 
   /**

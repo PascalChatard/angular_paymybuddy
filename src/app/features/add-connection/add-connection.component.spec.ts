@@ -1,4 +1,6 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 import { AddConnectionComponent } from './add-connection.component';
 
@@ -8,7 +10,8 @@ describe('AddConnectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddConnectionComponent ]
+      declarations: [ AddConnectionComponent ],
+      imports:[HttpClientModule, AppRoutingModule]
     })
     .compileComponents();
 
@@ -18,6 +21,12 @@ describe('AddConnectionComponent', () => {
   });
 
   it('should create', () => {
+
+  //   spyOn(component._activatedRoute.paramMap,"get").and.callFake(() => {
+  //     return 1;
+  // });
+
+  //component.ngOnInit();
     expect(component).toBeTruthy();
   });
 });
