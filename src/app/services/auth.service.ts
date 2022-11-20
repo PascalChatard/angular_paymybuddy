@@ -71,7 +71,7 @@ export class AuthService {
 
 
     /**
-    * Returns authenticate status
+    * Returns authenticate user's account id
     * @returns {boolean} true if user is authenticated otherwise false
     */
      getAccountIdOfAuthenticatedUser() : any{

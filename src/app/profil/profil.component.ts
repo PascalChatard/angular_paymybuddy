@@ -23,13 +23,13 @@ export class ProfilComponent implements OnInit {
     )
     }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
-  /**
-  * Submit a new transfer
-  */
-       onSubmit() {
+    /**
+    * Submit a new transfer
+    */
+    onSubmit() {
 
         if (this.userForm.valid) 
           console.log(this.userForm.value);

@@ -15,6 +15,7 @@ export class AppComponent {
 
     }
 
+    
     isUserLogged(): boolean {
       return this.authService.isAuthenticated();
     }
@@ -22,10 +23,11 @@ export class AppComponent {
 
     getAccountId(): any{
       if(this.authService.isAuthenticated()){
-        var accountId = this.authService.user?.accountUser;
+        //var accountId = this.authService.user?.accountUser;
+        var accountId = this.authService.getAccountIdOfAuthenticatedUser();
 
         return accountId;
       }
-      
+      return null; 
     }
 }

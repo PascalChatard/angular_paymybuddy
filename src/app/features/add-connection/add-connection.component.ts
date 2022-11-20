@@ -21,13 +21,6 @@ export class AddConnectionComponent implements OnInit {
                 private _activatedRoute:ActivatedRoute) { }
 
     ngOnInit(): void {
-        // retreives the account id from URL
-        // this.accountId = history.state.data;
-        // console.log("Accountid = ",this.accountId);
-
-        // // attempts to recover account data
-        // this.loadConnections(this.accountId);
-
 
         // retreives the account id from URL
         this._activatedRoute.paramMap.subscribe(params => { 
