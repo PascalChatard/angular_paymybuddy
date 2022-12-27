@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logoff', component: LogoffComponent },
   { path: 'profile', component: ProfilComponent},
+  { path: 'profile/:id', component: ProfilComponent},
   { path: 'account', canActivate: [AuthGuard], component: AccountComponent},
   { path: 'account/:id', canActivate: [AuthGuard], component: AccountComponent},
   { path: 'account/connection/:id', component: AddConnectionComponent},

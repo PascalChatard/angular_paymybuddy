@@ -2,7 +2,7 @@
 <div class="container-fluid text-center" style="margin: 20px auto;">
   <div *ngIf="!isUserLogged()">
     <h1>
-        Welcom to {{title}}!!!
+        Welcome to {{title}}!!!
     </h1>
   </div>
     <!-- Icone PayMyBuddy -->
@@ -15,13 +15,12 @@
     <ul class="nav navbar-nav">
       <li> <a class="nav-link" routerLink="login" routerLinkActive="active">Authentification</a> </li>
       <li> <a class="nav-link" routerLink="account/{{getAccountId()}}" routerLinkActive="active">Transfer</a> </li>
-      <li> <a class="nav-link" routerLink="profile" routerLinkActive="active">Profile</a> </li>
+      <li> <a class="nav-link" routerLink="profile/{{getUserId()}}" routerLinkActive="active">Profile</a> </li>
       <li> <a class="nav-link" routerLink="logoff" routerLinkActive="active">Log off</a> </li>
     </ul>
   </div>
 
 </nav>
-
 
 
 <div class="container">

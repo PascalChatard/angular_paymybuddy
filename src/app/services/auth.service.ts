@@ -69,14 +69,22 @@ export class AuthService {
     }
 
 
-
     /**
     * Returns authenticate user's account id
-    * @returns {boolean} true if user is authenticated otherwise false
+    * @returns {number} the account id of the authenticated user
     */
      getAccountIdOfAuthenticatedUser() : any{
-        //if(this.isAuth)
-          return this.user?.accountUser?.accountId;
+
+          return this.user?.accountUser;
     }
 
+
+    /**
+    * Returns authenticate user's id
+    * @returns {number} the user id of authenticated user
+    */
+    geUserIdOfAuthenticatedUser() : any{
+
+        return this.user?.userId;
+    }
 }
