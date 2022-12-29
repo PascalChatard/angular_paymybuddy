@@ -31,17 +31,32 @@ export class ProfilComponent implements OnInit {
                 firstName: ['', Validators.required],
                 address: ['', Validators.required],
                 city: ['', Validators.required],
-                phone: ['', Validators.required],
-                mail:['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+                // phone: ['', Validators.required, ],
+                phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+                // mail:['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
+                mail:['',  [Validators.required, Validators.email, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
                 password:['', Validators.required]
             }
         )
         
     }
 
+
+    /**
+    * getter to access the "phone" form control
+    */
+    get phone(){
+        return this.userForm.get('phone');
+      }
+
+
+    /**
+    * getter to access the "mail" form control
+    */
     get mail(){
         return this.userForm.get('mail');
       }
+
 
     ngOnInit(): void {
 
@@ -59,6 +74,17 @@ export class ProfilComponent implements OnInit {
             else
                 console.log("ngOnInit() -> statusCreation = ",this.statusCreation);
         });
+
+    }
+
+
+    /**
+    * getTitlePage returns the page title of profile
+    *   "Register" if a new user
+    *   "Update profile" if the user already have a account
+    */
+    getTitlePage(): string{
+        return this.statusCreation? "Register": "Update profile";
     }
 
 
@@ -79,16 +105,15 @@ export class ProfilComponent implements OnInit {
                 if (data)
                 {
                     this.user = data;
-
-                    this.userForm = new FormGroup({
-                        id: new FormControl(this.user?.userId ? this.user.userId : ''),
-                        firstName: new FormControl(this.user?.firstName? this.user.firstName : '', Validators.required),
-                        lastName: new FormControl(this.user?.lastName? this.user.lastName : '', Validators.required),
-                        address: new FormControl(this.user?.address? this.user.address : ''),
-                        city: new FormControl(this.user?.city ? this.user.city : ''),
-                        mail: new FormControl(this.user?.mail ? this.user.mail : ''),
-                        phone: new FormControl(this.user?.phone ? this.user.phone : ''),
-                        password: new FormControl(this.user?.phone ? this.user.password : '')})
+                    // fill form
+                    this.userForm.get('id')?.setValue(data.userId);
+                    this.userForm.get('lastName')?.setValue(data.lastName);
+                    this.userForm.get('firstName')?.setValue(data.firstName);
+                    this.userForm.get('address')?.setValue(data.address);
+                    this.userForm.get('city')?.setValue(data.city);
+                    this.userForm.get('mail')?.setValue(data.mail);
+                    this.userForm.get('phone')?.setValue(data.phone);
+                    this.userForm.get('password')?.setValue(data.password);
                 }                    
                 else
                 {
@@ -119,9 +144,7 @@ export class ProfilComponent implements OnInit {
                     this.user = data;
                     console.log(this.user);
                     console.log("AccountUser = " + accountUser);
-                    //this.onContinue();
-                    //this.router.navigate(['account/',this.user?.accountUser], {state: {data: this.user?.accountUser}});
-                    // login success, navigate to account page of user logged
+                    // register success, navigate to account page of new user
                     this.router.navigate(['account/',accountUser], {state: {data: accountUser}});
                 }                    
                 else
@@ -147,26 +170,15 @@ export class ProfilComponent implements OnInit {
             // retreive the account user id
             var urlUserUpdate = "http://localhost:4200/api/user";
             console.log(urlUserUpdate);
-            //this.onContinue();
+            
             // consumes the user/id endpoint of API REST
-            this.http.post(urlUserUpdate, { ...userData      }).subscribe(
-                                  data =>   {
-                                                console.log("onCreate() userData.mail : " + userData.mail);
-                                                console.log("onCreate() userData.password : " + userData.password);
-                                                this.authService.signIn(userData.mail, userData.password);
-                                                this.loadNewUser(userData.mail);
-                                                //this.router.navigate(['login/']);
-                                            });
+            this.http.post(urlUserUpdate, { ...userData      }).subscribe( data =>   {
+                console.log("onCreate() userData.mail : " + userData.mail);
+                console.log("onCreate() userData.password : " + userData.password);
+                this.authService.signIn(userData.mail, userData.password);
+                this.loadNewUser(userData.mail);
+            });
         }
-        // console.log("onCreate() this.userform.errors : " + this.userForm.errors);
-        // console.log("onCreate() this.userform.valid.id : " + this.userForm.value.id);
-        // console.log("onCreate() this.userform.valid.lastName : " + this.userForm.value.lastName);
-        // console.log("onCreate() this.userform.valid.firstName : " + this.userForm.value.firstName);
-        // console.log("onCreate() this.userform.valid.address : " + this.userForm.value.address);
-        // console.log("onCreate() this.userform.valid.city : " + this.userForm.value.city);
-        // console.log("onCreate() this.userform.valid.phone : " + this.userForm.value.phone);
-        // console.log("onCreate() this.userform.valid.mail : " + this.userForm.value.mail);
-        // console.log("onCreate() this.userform.valid.password : " + this.userForm.value.password);
 
     }
 
