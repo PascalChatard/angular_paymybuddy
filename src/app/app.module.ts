@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,8 +11,11 @@ import { TransfertComponent } from './features/transfert/transfert.component';
 import { UserComponent } from './features/user/user.component';
 import { AuthService } from './services/auth.service';
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
-import { AuthGuard } from './services/auth-gaurd.service';
+import { AuthGuard } from './services/auth-guard.service';
 import { LogoffComponent } from './features/logoff/logoff.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddConnectionComponent } from './features/add-connection/add-connection.component';
 
 @NgModule({
   declarations: [
@@ -22,16 +26,22 @@ import { LogoffComponent } from './features/logoff/logoff.component';
     TransfertComponent,
     UserComponent,
     FourOhFourComponent,
-    LogoffComponent
+    LogoffComponent,
+    AddConnectionComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule, 
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,
     AuthGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }

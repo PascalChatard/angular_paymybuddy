@@ -26,8 +26,10 @@ export class LogoffComponent implements OnInit {
 
     
     onContinue(){
-
-        this.router.navigate(['account']);
+        // retreive the account user id
+        var accountId = this.authService.user?.accountUser;
+        
+        this.router.navigate(['account/',accountId], {state: {data: accountId}});
     }
 
 }

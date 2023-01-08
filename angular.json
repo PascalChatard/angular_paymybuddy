@@ -76,8 +76,10 @@
               "browserTarget": "PayMyBuddy:build:production"
             },
             "development": {
-              "browserTarget": "PayMyBuddy:build:development"
+            "browserTarget": "PayMyBuddy:build:development",
+            "proxyConfig": "./proxy.conf.json"
             }
+          
           },
           "defaultConfiguration": "development"
         },

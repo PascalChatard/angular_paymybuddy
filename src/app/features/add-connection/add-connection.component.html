@@ -1,0 +1,33 @@
+
+<div class="container special" style=" margin: 20px auto;">
+    <div class="border border-secondary p-3 rounded" style="padding: 5rem; background-color: #eee">
+        <h1 class="h1">Add Connection</h1>
+        <h2 class="h2">User's list</h2>
+        <div class="table-responsive">
+            <!-- <table class="table table-striped table-sm"> -->
+            <table class="table table-dark table-hover">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody> 
+                <tr *ngIf="connections.length == 0"> 
+                    <td colspan="3">Aucun utilisateur en base de données</td> 
+                    <td><button class="btn btn-danger" (click)="gotoAccountPage()">Retour</button></td>
+
+                </tr> 
+                <tr *ngFor="let user of connections; index as i">  
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td> 
+                    <td>{{user.mail}}</td> 
+                    <td><button class="btn btn-info"(click)="addConnection(user)">Sélectionner </button></td>
+                </tr> 
+            </tbody> 
+            </table>
+        </div>
+    </div>
+</div>

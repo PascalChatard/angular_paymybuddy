@@ -1,12 +1,12 @@
 
-<div class="container-fluid text-center">
+<div class="container-fluid text-center" style="margin: 20px auto;">
   <div *ngIf="!isUserLogged()">
     <h1>
         Welcom to {{title}}!!!
     </h1>
   </div>
     <!-- Icone PayMyBuddy -->
-    <img class="img-fluid" src="../../assets/icone.png" style="margin-bottom: 2rem;" *ngIf="isUserLogged()"/>
+    <!-- <img class="img-fluid" src="../../assets/icone.png" style="margin-bottom: 2rem;" *ngIf="isUserLogged()"/> -->
 </div>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" *ngIf="isUserLogged()">
@@ -14,7 +14,7 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav">
       <li> <a class="nav-link" routerLink="login" routerLinkActive="active">Authentification</a> </li>
-      <li> <a class="nav-link" routerLink="account" routerLinkActive="active">Transfer</a> </li>
+      <li> <a class="nav-link" routerLink="account/{{getAccountId()}}" routerLinkActive="active">Transfer</a> </li>
       <li> <a class="nav-link" routerLink="profile" routerLinkActive="active">Profile</a> </li>
       <li> <a class="nav-link" routerLink="logoff" routerLinkActive="active">Log off</a> </li>
     </ul>
