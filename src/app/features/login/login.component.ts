@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
         this.loginStatus = this.authService.isAuthenticated();
     }
 
+
     onSignIn(){
         this.authService.signIn(this.email, this.password).then(
              () => {
@@ -43,6 +44,26 @@ export class LoginComponent implements OnInit {
                   }
         );
     }
+
+
+    // onSignIn(){
+    //     this.authService.signIn(this.email, this.password).subscribe(
+    //          data => {
+                
+    //                 // login success, assign status
+    //                 this.loginStatus = true;
+                    
+    //                 // retreive the account user id
+    //                 var accountId = this.authService.getAccountIdOfAuthenticatedUser();
+
+    //                 // login success, navigate to account page of user logged
+    //                 this.router.navigate(['account/',accountId], {state: {data: accountId}});
+    //               },
+    //         error => {
+    //             this.loginStatus = false;  
+    //         }
+    //     );
+    // }
 
     register(){
          // login success, navigate to account page of user logged

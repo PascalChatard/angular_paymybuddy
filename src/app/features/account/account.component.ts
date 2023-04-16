@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/models/account';
-import { Transfer } from 'src/app/models/transfer';
+import { Buffer } from 'buffer/';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class AccountComponent implements OnInit {
     accountId: any;
     transferForm: FormGroup ;
   
-    constructor(private formBuilder: FormBuilder,
+    constructor(private authService: AuthService,
+        private formBuilder: FormBuilder,
                 private http: HttpClient, 
                 private router: Router,
                 private _Activatedroute:ActivatedRoute) {
@@ -64,23 +66,21 @@ export class AccountComponent implements OnInit {
     * @param {any} accounId of user as a integer
     */
     loadTransfers(accountId: any) {
+
+        const headers = new HttpHeaders({ Authorization: 'Basic ' + Buffer.from(this.authService.user?.mail + ":" + this.authService.user?.password).toString('base64') });
+         
     
         // consumes the account/id endpoint of API REST 
-        this.http.get("http://localhost:4200/api/account/"+ accountId).subscribe(
-            (data: any) => {
+        this.http.get("http://localhost:4200/api/account/"+ accountId,{headers}).subscribe({
+            next:(data: any) => 
                
-                // the API REST return a account, 
-                // check that the instance exists
-                if (data)
-                {
-                    this.account = data;
-                }                    
-                else
-                {
-                    // Quoi mettre ici ????????
-                }
-            }
-        );
+                // the API REST return a account,               
+                this.account = data,
+
+            error:(e) => 
+                console.log('Error: loadTransfers')
+            
+        });
     }
 
 
@@ -88,6 +88,8 @@ export class AccountComponent implements OnInit {
     * Submit a new transfer
     */
     onSubmit() {
+
+        const headers = new HttpHeaders({ Authorization: 'Basic ' + Buffer.from(this.authService.user?.mail + ":" + this.authService.user?.password).toString('base64') });
         
         var urlAccount = "http://localhost:4200/api/account/" + this.accountId;
         if (this.transferForm.valid) {
@@ -95,15 +97,20 @@ export class AccountComponent implements OnInit {
             // retrieve data for execute a transfer
             const transfer = this.transferForm.value;
             // consumes the account/id endpoint of API REST
-            this.http.post(urlAccount, { ...transfer      }).subscribe(
-                              data =>   {
-                                            // update transfer list with the new transfer
-                                            this.loadTransfers(this.accountId);
-                                            this.transferForm.clearValidators();
-                                            this.transferForm.reset();
-                                        });
+            this.http.post(urlAccount, { ...transfer      },{headers}).subscribe({
+                next: (data) =>   {
+                                // update transfer list with the new transfer
+                                this.loadTransfers(this.accountId);
+                                this.transferForm.clearValidators();
+                                this.transferForm.reset();
+                            },
+                error: (e) => {
+                                console.log('Error: post method on onSubmit()');
+                            }
+            });
         }
     }
+
 
     /**
     * Navigate to add a new connection to account

@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { ConditionalExpr } from '@angular/compiler';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+//import { ConditionalExpr } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user';
 import { AuthService } from '../services/auth.service';
+import { Buffer } from 'buffer/';
 
 @Component({
   selector: 'app-profil',
@@ -93,11 +94,13 @@ export class ProfilComponent implements OnInit {
     * @param {any} userId of user as a integer
     */
      loadUser(userId: any) {
+
+        const headers = new HttpHeaders({ Authorization: 'Basic ' + Buffer.from(this.authService.user?.mail + ":" + this.authService.user?.password).toString('base64') });
         
         const url = "http://localhost:4200/api/userid/"+ userId;
 
         // consumes the  userid/id endpoint of API REST 
-        this.http.get(url).subscribe(
+        this.http.get(url,{headers}).subscribe(
             (data: any) => {
                
                 // the API REST return the id's user, 
@@ -130,10 +133,12 @@ export class ProfilComponent implements OnInit {
     */
      loadNewUser(userEmail: string) {
 
+        const headers = new HttpHeaders({ Authorization: 'Basic ' + Buffer.from(this.authService.user?.mail + ":" + this.authService.user?.password).toString('base64') });
+
         const url = "http://localhost:4200/api/user/"+ userEmail;
 
         // consumes the  user/email endpoint of API REST 
-        this.http.get(url).subscribe(
+        this.http.get(url,{headers}).subscribe(
             (data: any) => {
                
                 // the API REST return the user's info, 
@@ -161,6 +166,8 @@ export class ProfilComponent implements OnInit {
     */
     onCreate(){
 
+        const headers = new HttpHeaders({ Authorization: 'Basic ' + Buffer.from(this.authService.user?.mail + ":" + this.authService.user?.password).toString('base64') });
+
         this.userForm.patchValue({id: ''}); 
         if (this.userForm.valid) 
         {
@@ -171,12 +178,17 @@ export class ProfilComponent implements OnInit {
             var urlUserUpdate = "http://localhost:4200/api/user";
             console.log(urlUserUpdate);
             
+
             // consumes the user/id endpoint of API REST
-            this.http.post(urlUserUpdate, { ...userData      }).subscribe( data =>   {
-                console.log("onCreate() userData.mail : " + userData.mail);
-                console.log("onCreate() userData.password : " + userData.password);
-                this.authService.signIn(userData.mail, userData.password);
-                this.loadNewUser(userData.mail);
+            this.http.post(urlUserUpdate, { ...userData      },{headers}).subscribe( {
+                next:(data) => {   
+                    console.log("onCreate() userData.mail : " + userData.mail);
+                    console.log("onCreate() userData.password : " + userData.password);
+                    this.authService.signIn(userData.mail, userData.password);
+                    this.loadNewUser(userData.mail)},
+
+                error:(e) =>
+                    console.log('Error: onUpdate() post subscribe error')
             });
         }
 
@@ -188,23 +200,32 @@ export class ProfilComponent implements OnInit {
     */
     onUpdate(){
 
+        const headers = new HttpHeaders({ Authorization: 'Basic ' + Buffer.from(this.authService.user?.mail + ":" + this.authService.user?.password).toString('base64') });
+
         if (this.userForm.valid) 
         {
             // retrieves data for execute the update
             const userData = this.userForm.value;
-            console.log(userData);
+            //console.log(userData);
             // retreive the id  of user's account
             var urlUserUpdate = "http://localhost:4200/api/user/" + this.userForm.value.id;
-            console.log(urlUserUpdate);
+            //console.log(urlUserUpdate);
+            //console.log("this.userform.valid = true : ");
             //this.onContinue();
+            
             // consumes the user/id endpoint of API REST
-            this.http.post(urlUserUpdate, { ...userData      }).subscribe(
-                                  data =>   {
-
-                                                this.onContinue();
-                                            });
+            this.http.post(urlUserUpdate, { ...userData      },{headers}).subscribe({
+                next:(data) =>   
+                    this.onContinue(),
+                error:(e) => 
+                    console.log('Error: onUpdate() post subscribe error')
+            });
+                            
         }
-        console.log("this.userform.valid = false : " + this.userForm.value);
+        else {
+            console.log("onUpdate() this.userform.valid = false : ");
+            console.log(this.userForm.value);
+        }
 
     }
 

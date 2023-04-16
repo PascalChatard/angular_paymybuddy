@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { ProfilComponent } from './profil.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from '../app-routing.module';
+import { AuthService } from '../services/auth.service';
 
 describe('ProfilComponent', () => {
   let component: ProfilComponent;
@@ -9,8 +12,9 @@ describe('ProfilComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [AuthService],
       declarations: [ ProfilComponent ],
-      imports:[ReactiveFormsModule]
+      imports:[HttpClientModule,ReactiveFormsModule, AppRoutingModule]
     })
     .compileComponents();
 

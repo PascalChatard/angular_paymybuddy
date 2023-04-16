@@ -2,6 +2,9 @@ import { OnInit } from "@angular/core";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from "src/app/models/user";
 import { Injectable } from "@angular/core";
+import { map } from "rxjs/operators";
+import { Buffer } from 'buffer/';
+
 
 @Injectable()
 export class AuthService {
@@ -20,32 +23,24 @@ export class AuthService {
     */
     signIn(email: string, password: string){
 
+        const headers = new HttpHeaders({ Authorization: 'Basic ' + Buffer.from(email + ":" + password).toString('base64') });
+
         return new Promise(
             (resolve,reject) => {
 
                 // consumes the user/email endpoint of API REST 
-                this.http.get("http://localhost:4200/api/user/" + email).subscribe(
+                this.http.get("http://localhost:4200/api/user/" + email,{headers}).subscribe({
 
-                    (data: any) => {
-
-                        // the API REST return a user, verify the instance and the credentials
+                    next:(data:any) => {
+            
+                        // the API REST return a user
                         this.user = data;
-                        //if ((this.user != null) && 
-                        if ((this.user) && 
-                            (this.user.mail == email) &&
-                            (this.user.password == password)) {
-
-                                // the user is authenticated
-                                this.isAuth = true;
-                                resolve(true);
-                        }
-                        else{
-                                // l'erreur ne remonte pas ici ....
-                                console.log("signIn, isAuth = false");
-                                resolve(false); 
-                        }
-                    }
-                );
+                        this.isAuth = true;
+                        resolve(true)},                        
+                    error:(e) => {
+                        this.isAuth = false;
+                        resolve(false);} 
+                });
             }
         );
 

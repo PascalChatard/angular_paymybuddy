@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
 import { AddConnectionComponent } from './add-connection.component';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 describe('AddConnectionComponent', () => {
   let component: AddConnectionComponent;
@@ -10,6 +12,7 @@ describe('AddConnectionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [AuthService],
       declarations: [ AddConnectionComponent ],
       imports:[HttpClientModule, AppRoutingModule]
     })

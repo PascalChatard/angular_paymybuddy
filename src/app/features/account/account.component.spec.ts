@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
 import { AccountComponent } from './account.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 describe('AccountComponent', () => {
   let component: AccountComponent;
@@ -11,6 +12,7 @@ describe('AccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      providers: [AuthService],
       declarations: [ AccountComponent ],
       imports:[HttpClientModule, ReactiveFormsModule, AppRoutingModule]
     })

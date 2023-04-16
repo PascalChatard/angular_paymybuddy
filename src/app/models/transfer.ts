@@ -29,20 +29,9 @@ export interface Transfer {
     cost: number;
  
     /**
-     * Credited Account by the transfer.
+     * Transfer recipient name.
      */
-    // creditedAccount: Account
     transferRecipient: string;
- 
-    // /**
-    //  * Debited Account by the transfer
-    //  */
-    // debitedAccount: Account
- 
-    // /**
-    //  * Pay rate applied.
-    //  */
-    //rate: Rate;
  
 
 }
