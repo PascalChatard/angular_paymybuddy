@@ -5,9 +5,9 @@ import { LoginComponent } from './features/login/login.component';
 import { LogoffComponent } from './features/logoff/logoff.component';
 import { AddConnectionComponent } from './features/add-connection/add-connection.component';
 
-import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
-import { AuthGuard } from './services/auth-guard.service';
-import { ProfilComponent } from './profil/profil.component';
+import { FourOhFourComponent } from './features/four-oh-four/four-oh-four.component';
+import { AuthGuard } from './core/auth/auth-guard.service';
+import { ProfilComponent } from './features/profil/profil.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

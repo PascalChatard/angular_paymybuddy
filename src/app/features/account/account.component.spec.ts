@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 
 import { AccountComponent } from './account.component';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 describe('AccountComponent', () => {
   let component: AccountComponent;

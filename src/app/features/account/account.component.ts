@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Account } from 'src/app/models/account';
 import { Buffer } from 'buffer/';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 
 @Component({

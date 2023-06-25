@@ -3,8 +3,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ProfilComponent } from './profil.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from '../app-routing.module';
-import { AuthService } from '../services/auth.service';
+import { AppRoutingModule } from '../../app-routing.module';
+import { AuthService } from 'src/app/core/auth/auth.service';
 
 describe('ProfilComponent', () => {
   let component: ProfilComponent;

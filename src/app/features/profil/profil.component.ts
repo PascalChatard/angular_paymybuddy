@@ -3,8 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../models/user';
-import { AuthService } from '../services/auth.service';
+import { User } from '../../models/user';
+import { AuthService } from 'src/app/core/auth/auth.service';
 import { Buffer } from 'buffer/';
 
 @Component({
