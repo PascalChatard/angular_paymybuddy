@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './features/login/login.component';
 import { AccountComponent } from './features/account/account.component';
 import { ProfilComponent } from './features/profil/profil.component';
-import { TransfertComponent } from './features/transfert/transfert.component';
 import { AuthService } from './core/auth/auth.service';
 import { FourOhFourComponent } from './features/four-oh-four/four-oh-four.component';
 import { AuthGuard } from './core/auth/auth-guard.service';
@@ -22,7 +21,6 @@ import { AddConnectionComponent } from './features/add-connection/add-connection
     LoginComponent,
     AccountComponent,
     ProfilComponent,
-    TransfertComponent,
     FourOhFourComponent,
     LogoffComponent,
     AddConnectionComponent
