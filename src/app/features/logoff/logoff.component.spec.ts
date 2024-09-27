@@ -1,4 +1,8 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { AuthService } from 'src/app/services/auth.service';
 
 import { LogoffComponent } from './logoff.component';
 
@@ -8,7 +12,9 @@ describe('LogoffComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LogoffComponent ]
+      declarations: [ LogoffComponent ],
+      providers:[AuthService],
+      imports:[HttpClientModule, AppRoutingModule]
     })
     .compileComponents();
 

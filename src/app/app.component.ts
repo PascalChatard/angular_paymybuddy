@@ -15,17 +15,39 @@ export class AppComponent {
 
     }
 
+    /**
+    * Returns authenticate state of user
+    * @returns {number} true if user is authenticated user, false otherwise
+    */
     isUserLogged(): boolean {
       return this.authService.isAuthenticated();
     }
 
 
+    /**
+    * Returns authenticate user's account id
+    * @returns {number} the account id of the authenticated user
+    */
     getAccountId(): any{
-      if(this.authService.isAuthenticated()){
-        var accountId = this.authService.user?.accountUser;
-
-        return accountId;
-      }
-      
+        if(this.authService.isAuthenticated()){
+            
+            var accountId = this.authService.getAccountIdOfAuthenticatedUser();
+            return accountId;
+        }
+        return null; 
     }
+
+
+    /**
+    * Returns authenticate user's id
+    * @returns {number} the user id of authenticated user
+    */
+    getUserId(): any{
+        if(this.authService.isAuthenticated()){
+            //var accountId = this.authService.user?.accountUser;
+            return this.authService.geUserIdOfAuthenticatedUser();
+        }
+        return null; 
+    }
+
 }

@@ -7,11 +7,13 @@ import { AddConnectionComponent } from './features/add-connection/add-connection
 
 import { FourOhFourComponent } from './four-oh-four/four-oh-four.component';
 import { AuthGuard } from './services/auth-guard.service';
+import { ProfilComponent } from './profil/profil.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logoff', component: LogoffComponent },
-  { path: 'profile', redirectTo: 'not-found'},
+  { path: 'profile', component: ProfilComponent},
+  { path: 'profile/:id', component: ProfilComponent},
   { path: 'account', canActivate: [AuthGuard], component: AccountComponent},
   { path: 'account/:id', canActivate: [AuthGuard], component: AccountComponent},
   { path: 'account/connection/:id', component: AddConnectionComponent},

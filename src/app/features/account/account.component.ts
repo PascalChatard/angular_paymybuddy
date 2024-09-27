@@ -38,6 +38,7 @@ export class AccountComponent implements OnInit {
         )
     }
 
+    
     ngOnInit(): void {
 
         // retreives the account id from URL

@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     public password: string ;
 
     constructor(private authService: AuthService, private router: Router) {
-        
+          
         this.loginStatus = false;        
         this.email = '';
         this.password = '';
@@ -31,16 +31,22 @@ export class LoginComponent implements OnInit {
     onSignIn(){
         this.authService.signIn(this.email, this.password).then(
              () => {
+                
                     // login success, assign status
                     this.loginStatus = this.authService.isAuthenticated();
-
+                    
                     // retreive the account user id
-                    var accountId = this.authService.user?.accountUser;
+                    var accountId = this.authService.getAccountIdOfAuthenticatedUser();
 
                     // login success, navigate to account page of user logged
                     this.router.navigate(['account/',accountId], {state: {data: accountId}});
                   }
         );
+    }
+
+    register(){
+         // login success, navigate to account page of user logged
+         this.router.navigate(['profile']);
     }
 
 }

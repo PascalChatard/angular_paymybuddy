@@ -1,1 +1,103 @@
-<p>profil works!</p>
+<div class="container special" style=" margin: 20px auto;" >
+    <div class="border border-secondary p-3 rounded" style="padding: 5rem; background-color: #eee;">
+
+        <!-- Title page -->
+        <h2 class="h2">{{getTitlePage()}}</h2>
+            
+        <form  [formGroup]="userForm" (ngSubmit)="statusCreation ? onCreate() : onUpdate()">
+            <div class="form-group blu-margin">
+                <!-- Gives a lastName of user -->
+                <input	type="text" class="form-control form-control-dark" formControlName="lastName" placeholder="Give you lastname"  id="lastName" style="margin:10px; background-color: #2c3034;color:#fff"> 
+
+                <!-- Gives a firstName of user -->
+                <input	type="text" class="form-control form-control-dark" formControlName="firstName" placeholder="Give you firstname"  id="firstName" style="margin:10px; background-color: #2c3034;color:#fff"> 
+
+                <!-- Gives the address of user -->
+                <input	type="text" class="form-control form-control-dark" formControlName="address" placeholder="Give you address"  id="address" style="margin:10px; background-color: #2c3034;color:#fff"> 
+
+                <!-- Gives the city of user -->
+                <input  type="text" class="form-control form-control-dark" formControlName="city" placeholder="Give you city"  id="city" style="margin:10px; background-color: #2c3034;color:#fff"> 
+
+                <!-- Gives the phone of user -->
+                <input [class.is-invalid] = "phone?.invalid && phone?.touched"	type="text" class="form-control form-control-dark" formControlName="phone" placeholder="Give you phone"  id="phone" style="margin:10px; background-color: #2c3034;color:#fff"> 
+                <div *ngIf="(phone?.invalid && phone?.touched) || mail?.dirty" style="margin-left:10px">
+                    <small *ngIf="phone?.errors?.['required']" class="text-danger">A phone is required</small>
+                    <small *ngIf="phone?.errors?.['pattern']" class="text-danger">Please provide a valid phone (10 digits) </small>
+                </div>
+
+                <!-- Gives the email of user -->
+                <input [class.is-invalid] = "mail?.invalid && mail?.touched" type="email" class="form-control form-control-dark" formControlName="mail" placeholder="Give you email"  id="email" style="margin:10px; background-color: #2c3034;color:#fff"> 
+                <div *ngIf="(mail?.invalid && mail?.touched) || mail?.dirty" style="margin-left:10px">
+                    <small *ngIf="mail?.errors?.['required']" class="text-danger">A email is required</small>
+                    <small *ngIf="mail?.errors?.['email'] || mail?.errors?.['pattern']" class="text-danger">Please provide a valid email address</small>
+                </div>
+
+                <div class="form-button" *ngIf="statusCreation">
+                    <!-- Gives the password of user -->
+                    <input	type="password" class="form-control form-control-dark" formControlName="password" placeholder="Give you password"  id="password" style="margin:10px; background-color: #2c3034;color:#fff"> 
+
+                    <!-- Gives the password of user -->
+                    <input	type="password" class="form-control form-control-dark" formControlName="password" placeholder="Repeat you password"  id="password" style="margin:10px; background-color: #2c3034;color:#fff"> 
+
+                </div>
+
+                <!-- Manage password change entry -->
+                <div class="form-button" *ngIf="statusChangePassword">
+                    <!-- Gives current password -->
+                    <label style="margin-left:10px">Enter current password</label>
+                    <input	type="password" class="form-control form-control-dark" formControlName="password" id="password" style="margin:10px; background-color: #2c3034;color:#fff"> 
+
+                    <!-- Gives new password -->
+                    <label style="margin-left:10px">Enter the new password</label>
+                    <input	type="password" class="form-control form-control-dark" formControlName="password" id="password" style="margin:10px; background-color: #2c3034;color:#fff"> 
+
+                    <!-- Gives new password again -->
+                    <label style="margin-left:10px">Re-enter the new password</label>
+                    <input	type="password" class="form-control form-control-dark" formControlName="password" id="password" style="margin:10px; background-color: #2c3034;color:#fff"> 
+
+                </div>
+
+            </div>   
+
+            <div class="col d-flex justify-content-evenly form-outline mb-4"> 
+                <div class="form-button" >
+                    <button type="button" class="btn btn-success" style="margin:10px" (click)="statusCreation? onCancel(): onContinue()">Cancel</button>
+                </div> 
+    
+                <div class="form-button" *ngIf="statusCreation">
+                    <button type="submit" class="btn btn-secondary" style="margin:10px">Create</button>
+                </div>
+
+                <div class="form-button" *ngIf="!statusCreation">
+                    <button type="submit" class="btn btn-secondary" style="margin:10px" [disabled]="userForm.invalid || userForm.pristine">Update</button>
+                </div>
+
+                <div class="form-button" *ngIf="!statusCreation">
+                    <button type="button" class="btn btn-success" style="margin:10px" (click)="onChangePwd()">Change pwd</button>
+                </div>
+            </div>
+    
+
+        </form>
+    </div>
+</div>
+
+<!-- <div style="float: right; width:50%;">
+ 
+    <h3>Form Status</h3>
+    <b>status : </b>{{userForm.status}}
+    <b>valid : </b>{{userForm.valid}}
+    <b>invalid : </b>{{userForm.invalid}}
+    <b>touched : </b>{{userForm.touched}}
+    <b>untouched : </b>{{userForm.untouched}}
+    <b>pristine : </b>{{userForm.pristine}}
+    <b>dirty : </b>{{userForm.dirty}}
+    <b>disabled : </b>{{userForm.disabled}}
+    <b>enabled : </b>{{userForm.enabled}}
+   
+   
+    <h3>Form Value</h3>
+    {{userForm.value | json }}
+   
+  </div> -->
+
